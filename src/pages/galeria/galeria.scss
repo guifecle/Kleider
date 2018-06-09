@@ -1,0 +1,13 @@
+page-galeria {
+    .container{
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        height: 100%;   
+        flex-wrap: wrap     
+    }
+    .img{
+        height: 35px;
+        width: 35px;
+    }
+}
