@@ -14,6 +14,23 @@ import { MaterializeModule } from 'angular2-materialize';
 import { LoginPage } from '../pages/login/login';
 import { GaleriaPage } from '../pages/galeria/galeria';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { UserProvider } from '../providers/user/user';
+
+//FireBase
+import { AngularFireModule, FirebaseAppConfig } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AuthenticateProvider } from '../providers/authenticate/authenticate';
+
+const firebaseAppConfig: FirebaseAppConfig = {
+  apiKey: "AIzaSyDQUUngWHg4wRG7RN1keEJNd77QNYVA6lI",
+  authDomain: "kleider-40b8e.firebaseapp.com",
+  databaseURL: "https://kleider-40b8e.firebaseio.com",
+  projectId: "kleider-40b8e",
+  storageBucket: "",
+  messagingSenderId: "793580625707"
+};
+
 @NgModule({
   declarations: [
     MyApp,
@@ -26,7 +43,10 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    IonicImageViewerModule
+    IonicImageViewerModule,
+    AngularFireModule.initializeApp(firebaseAppConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -40,7 +60,9 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UserProvider,
+    AuthenticateProvider,
   ]
 })
 export class AppModule {}
