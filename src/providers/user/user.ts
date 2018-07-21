@@ -25,6 +25,7 @@ export class UserProvider extends BaseProvider {
     @Inject(FirebaseApp) private firebaseApp: any
   ) {
     super();
+  
     this.listenAuthState();
   }
 
@@ -41,7 +42,7 @@ export class UserProvider extends BaseProvider {
     return this.users;
   }
   public listenAuthState(): void {
-    this.auth.authState.subscribe((authState: firebase.User) => {
+    this.auth.authState.subscribe((authState: any) => {
       if (authState) {
         this.key = authState.uid;
         this.currentUser = this.db.object(this.PATH_USERS + authState.uid);
@@ -101,12 +102,12 @@ export class UserProvider extends BaseProvider {
       }
     })
   }
-  uploadFile(file: File, key: string = ''): firebase.storage.UploadTask {
-    return this.firebaseApp
-      .storage()
-      .ref()
-      .child(`users/${this.key}`)
-      .put(file)
-  }
+  // uploadFile(file: File, key: string = ''): firebase.storage.UploadTask {
+  //   return this.firebaseApp
+  //     .storage()
+  //     .ref()
+  //     .child(`users/${this.key}`)
+  //     .put(file)
+  // }
 
 }

@@ -14,10 +14,10 @@
     </ion-navbar>
   </ion-header>
   
-  <ion-content padding>
+  <ion-content padding class="color">
   
   
-    <ion-grid *ngIf="images">
+    <ion-grid *ngIf="images" >
       <ion-row>
         <ion-col *ngFor="let photo of images" [attr.col-6]="grid ? true : null" [attr.col-12]="!grid ? true : null">
           <div>

@@ -6,7 +6,7 @@
 
 <ion-content padding class="color">
   <div class="container">
-    <ion-slides  effect='cube' autoplay='1' zoom loop > 
+    <ion-slides  effect='cube' [autoplay]='initiliazeCube' zoom loop > 
 
       <ion-slide *ngFor='let photo of images'>
         <a >

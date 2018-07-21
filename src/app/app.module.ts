@@ -21,6 +21,9 @@ import { AngularFireModule, FirebaseAppConfig } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AuthenticateProvider } from '../providers/authenticate/authenticate';
+import { SignUpPage } from '../pages/sign-up/sign-up';
+//Plugins
+import { Keyboard } from '@ionic-native/keyboard';
 
 const firebaseAppConfig: FirebaseAppConfig = {
   apiKey: "AIzaSyDQUUngWHg4wRG7RN1keEJNd77QNYVA6lI",
@@ -38,11 +41,17 @@ const firebaseAppConfig: FirebaseAppConfig = {
     HomePage,
     TabsPage,
     LoginPage,
-    GaleriaPage
+    GaleriaPage,
+    SignUpPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      //Load modules while the app is running
+      pageTransition: 'ios-transition',
+       scrollAssist: false,
+        autoFocusAssist: false 
+    }),
     IonicImageViewerModule,
     AngularFireModule.initializeApp(firebaseAppConfig),
     AngularFireDatabaseModule,
@@ -55,13 +64,15 @@ const firebaseAppConfig: FirebaseAppConfig = {
     HomePage,
     TabsPage,
     LoginPage,
-    GaleriaPage
+    GaleriaPage,
+    SignUpPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
+    Keyboard,
     AuthenticateProvider,
   ]
 })

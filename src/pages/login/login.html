@@ -6,9 +6,23 @@
 -->
 
 
-<ion-content padding class="color">
+<ion-content padding class="color" no-bounce>
+    <div text-center class="form-align">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit(); $event.preventDefault()" id='form' class="form-proportion">
+          <ion-list inset>
+            <ion-item class="transparent" id="cpf">
+              <ion-label class="white-text" floating>E-mail</ion-label>
+              <ion-input type="email" formControlName='email'></ion-input>
+            </ion-item>
+            <ion-item class="transparent" id="senha">
+              <ion-label class="white-text" floating>Senha</ion-label>
+              <ion-input type="password" formControlName='password'></ion-input>
+            </ion-item>
+          </ion-list>
+        </form>
+      </div>
   <div class="button-align">
-    <button ion-button round color='light' (click)='login()'> <ion-icon color='danger' name="logo-google" icon-start> </ion-icon>Entrar com google</button> 
-
+    <button ion-button round block color='light' type="submit" [disabled]="loginForm.invalid" form="form" > <ion-icon color='danger' name="logo-google" icon-start> </ion-icon>Entrar com google</button> 
+    <button ion-button round block color='light' (click)='signUp()'> <ion-icon color='danger' name="contact" icon-start> </ion-icon>Sign-Up</button> 
   </div>
 </ion-content>
