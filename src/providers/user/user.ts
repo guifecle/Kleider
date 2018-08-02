@@ -15,9 +15,8 @@ import { User } from '../../models/user.models';
 export class UserProvider extends BaseProvider {
 
   private PATH_USERS = 'users/';
-  users: any;
-  user: any;
-  key: string;
+  public users: any;
+  public key: string;
   public currentUser: any;
   constructor(
     private db: AngularFireDatabase,
@@ -25,7 +24,7 @@ export class UserProvider extends BaseProvider {
     @Inject(FirebaseApp) private firebaseApp: any
   ) {
     super();
-  
+
     this.listenAuthState();
   }
 
@@ -45,7 +44,11 @@ export class UserProvider extends BaseProvider {
     this.auth.authState.subscribe((authState: any) => {
       if (authState) {
         this.key = authState.uid;
-        this.currentUser = this.db.object(this.PATH_USERS + authState.uid);
+        this.currentUser = this.db.object(this.PATH_USERS + authState.uid).snapshotChanges()
+          .map(c => {
+            return { key: c.key, ...c.payload.val() };
+          });
+          console.log(this.currentUser)
         this.setUsers();
       }
     })

@@ -1,14 +1,14 @@
 <ion-header>
   <ion-navbar color='primary'>
     <ion-title>
-      Configurações
+      Configurações <span *ngIf='user | async as item'>Olá {{item.name}}!</span>
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-list-header>Configurações</ion-list-header>
+    <ion-list-header>Configurações </ion-list-header>
     <ion-item>
         <button ion-item  (click)='logout()'> <ion-icon color='danger'> Sair </ion-icon>
         </button>
