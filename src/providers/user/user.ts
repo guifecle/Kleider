@@ -5,7 +5,6 @@ import { BaseProvider } from '../base/base';
 //Angular FireBase
 import { AngularFireDatabase } from '../../../node_modules/angularfire2/database';
 import { AngularFireAuth } from '../../../node_modules/angularfire2/auth';
-import { FirebaseApp } from '../../../node_modules/angularfire2';
 //Observale
 import { Observable } from '../../../node_modules/rxjs';
 //Models
@@ -14,37 +13,38 @@ import { User } from '../../models/user.models';
 @Injectable()
 export class UserProvider extends BaseProvider {
 
+  //Path
   private PATH_USERS = 'users/';
+  //Observables
+  public currentUser$: Observable<any>;
+  private users$: Observable<any>;
+  //User Variables
+  public currentUser: any;
   public users: any;
   public key: string;
-  public currentUser: any;
+
   constructor(
     private db: AngularFireDatabase,
     private auth: AngularFireAuth,
-    @Inject(FirebaseApp) private firebaseApp: any
   ) {
     super();
 
     this.listenAuthState();
   }
 
-  public getCurrentUserKey(): string {
-    return this.key;
-  }
+
   private setUsers(): void {
-    this.users = this.db.list(this.PATH_USERS, ref => ref.orderByChild('name')).snapshotChanges().map(users => {
+    this.users$ = this.db.list(this.PATH_USERS, ref => ref.orderByChild('name')).snapshotChanges().map(users => {
       let filteredUsers = users.filter((user => { return user.key !== this.key }));
       return filteredUsers.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     })
   }
-  public getUsers() {
-    return this.users;
-  }
+
   public listenAuthState(): void {
     this.auth.authState.subscribe((authState: any) => {
       if (authState) {
         this.key = authState.uid;
-        this.currentUser = this.db.object(this.PATH_USERS + authState.uid).snapshotChanges()
+        this.currentUser$ = this.db.object(this.PATH_USERS + authState.uid).snapshotChanges()
           .map(c => {
             return { key: c.key, ...c.payload.val() };
           });
@@ -54,14 +54,14 @@ export class UserProvider extends BaseProvider {
     })
   }
 
-  public getAll(): Observable<any> {
+  private getAll(): Observable<any> {
     return this.db.list(this.PATH_USERS, ref => ref.orderByChild('name'))
       .snapshotChanges()
       .map(changes => {
         return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
       })
   }
-  public get(key: string): Observable<any> {
+  private get(key: string): Observable<any> {
     return this.db.object(this.PATH_USERS + key).snapshotChanges()
       .map(c => {
         return { key: c.key, ...c.payload.val() };

@@ -16,21 +16,13 @@ export class PhotoProvider {
 
   }
 
-  public takePhoto():Promise<any>{
+  public takePhoto(key:string):Promise<any>{
     return new Promise((resolve, reject) => {
       this.db.list(this.PATH_INSTRUCTION)
-        .push({takePhoto: true})
+        .set(key,{takePhoto: true})
         .then(() => resolve())
     })
   }
-  
 
-  // public uploadFile(file: File, key: string = ''): firebase.storage.UploadTask {
-  //   return this.firebaseApp
-  //     .storage()
-  //     .ref()
-  //     .child(`users/${this.key}`)
-  //     .put(file)
-  // }
 
 }

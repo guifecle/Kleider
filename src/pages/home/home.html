@@ -6,20 +6,26 @@
 
 <ion-content padding class="color">
   <div class="container">
-    <ion-slides  effect='cube' [autoplay]='initiliazeCube' zoom loop > 
+    <ion-slides effect='cube' [autoplay]='initiliazeCube' zoom loop>
 
       <ion-slide *ngFor='let photo of images'>
-        <a >
-          <img  src="{{photo.url}}" imageViewer>
+        <a>
+          <img src="{{photo.url}}" imageViewer>
         </a>
       </ion-slide>
 
     </ion-slides>
-    </div>
-    <ion-fab bottom right>
-        <button ion-fab (click)='rodaRodaDoMilhao()'>Rodar</button>
-    </ion-fab>
-    <ion-fab bottom right>
-      <button ion-fab (click)='tiraFoto()'>Tira Foto</button>
-    </ion-fab>
+  </div>
+  <ion-fab bottom right>
+    <button ion-fab color="primary">
+      <ion-icon name="ionitron"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+      <button ion-fab (click)='rodaRodaDoMilhao()' color="primary"><ion-icon name="cube"></ion-icon></button>
+      <button ion-fab color="primary" (click)='tiraFoto()'>
+        <ion-icon *ngIf="!loading" name="camera" ></ion-icon>
+        <ion-spinner *ngIf="loading" name="bubbles" ></ion-spinner>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

@@ -1,17 +1,20 @@
 <ion-header>
   <ion-navbar color='primary'>
-    <ion-title>
-      Configurações <span *ngIf='user | async as item'>Olá {{item.name}}!</span>
+    <ion-title text-capitalize>
+      <span *ngIf='user$ | async as user' >Olá, {{user.name}}!</span>
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-list-header>Configurações </ion-list-header>
-    <ion-item>
-        <button ion-item  (click)='logout()'> <ion-icon color='danger'> Sair </ion-icon>
-        </button>
-    </ion-item>
-  </ion-list>
+<ion-content padding class="color">
+  <div *ngIf="user$ | async as user">
+      <ion-avatar class="info-ion-avatar">
+        <img class="round" [src]="user.photo || '../assets/imgs/no-photo.jpg'">
+      </ion-avatar>
+  </div>
 </ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <button ion-button full round clear (click)='logout()' class="transparent" text-center> <ion-icon color='danger'> Sair </ion-icon></button>
+    </ion-toolbar>
+</ion-footer>
