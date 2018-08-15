@@ -24,6 +24,7 @@ import { AuthenticateProvider } from '../providers/authenticate/authenticate';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 //Plugins
 import { Keyboard } from '@ionic-native/keyboard';
+import { PhotoProvider } from '../providers/photo/photo';
 
 const firebaseAppConfig: FirebaseAppConfig = {
   apiKey: "AIzaSyDQUUngWHg4wRG7RN1keEJNd77QNYVA6lI",
@@ -74,6 +75,7 @@ const firebaseAppConfig: FirebaseAppConfig = {
     UserProvider,
     Keyboard,
     AuthenticateProvider,
+    PhotoProvider,
   ]
 })
 export class AppModule {}

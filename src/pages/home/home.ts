@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, App, Slides } from 'ionic-angular';
 import { LoginPage } from '../login/login';
+import { PhotoProvider } from '../../providers/photo/photo';
 
 @Component({
   selector: 'page-home',
@@ -11,7 +12,7 @@ export class HomePage {
   count=0;
   initiliazeCube = 0;
   @ViewChild(Slides) slides: Slides;
-  constructor(public navCtrl: NavController,public appCtrl: App) {
+  constructor(public navCtrl: NavController,public appCtrl: App, private photoService: PhotoProvider) {
 
     for (var i = 0; i < 10;  i++) {
       this.images.push({url:'https://source.unsplash.com/random/800x600?i='+i})
@@ -33,6 +34,11 @@ export class HomePage {
       
     }, 100);
   
+  }
+  protected tiraFoto(){
+    this.photoService.takePhoto().then(()=>{
+      console.log("photo is being taken");
+    })
   }
  
 }
